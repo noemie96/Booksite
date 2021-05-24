@@ -72,6 +72,19 @@ class Books
         $this->images = new ArrayCollection();
     }
 
+    /**
+     * Permet d'initialiser le slug automatiquement s'il n'est pas fourni 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     * 
+     * @return void
+     */
+    public function initializeSlug(){
+        if(empty($this->slug)){
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->title);
+        }
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -173,7 +186,7 @@ class Books
     {
         if (!$this->images->contains($image)) {
             $this->images[] = $image;
-            $image->setRelation($this);
+            $image->setBook($this);
         }
 
         return $this;
@@ -183,8 +196,8 @@ class Books
     {
         if ($this->images->removeElement($image)) {
             // set the owning side to null (unless already changed)
-            if ($image->getRelation() === $this) {
-                $image->setRelation(null);
+            if ($image->getBook() === $this) {
+                $image->setBook(null);
             }
         }
 

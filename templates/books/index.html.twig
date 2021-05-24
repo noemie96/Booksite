@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos annonces{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="my-3">Voici nos livres</h1>
+        <div class="row">
+        {% for books in bookss %}
+         {% set url = path('books_detail', {'slug': books.slug}) %}
+            <div class="col-md-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header text-center">
+                        <h4> Titre: {{books.title}} <strong> {{books.price}}€</strong></h4>
+                    </div>
+                    <a href="{{url}}">
+                        <img src="{{ books.image }}" alt="image de {{ books.title }}" class="starsimg">
+                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            {{books.title}}
+                        </h4>
+                        <p class="card-text">
+                            {{books.resume | raw}}
+                        </p>
+                        <a href="{{url}}" class="btn btn-secondary">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

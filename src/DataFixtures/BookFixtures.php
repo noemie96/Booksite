@@ -22,7 +22,7 @@ class BookFixtures extends Fixture
             
 
             $books->setTitle($title)
-                 // ->setImage('https://picsum.photos/1000/350')
+                  ->setImage('https://picsum.photos/150/350')
                     ->setAuthor($author)
                     ->setGenre($genre)
                     ->setResume($resume)
