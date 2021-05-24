@@ -2,11 +2,21 @@
 
 namespace App\Entity;
 
-use App\Repository\BooksRepository;
+
+use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BooksRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=BooksRepository::class)
+ *   * @ORM\HasLifecycleCallbacks
+ *  * @UniqueEntity(
+ *  fields={"title"},
+ *  message="Une autre livre possède déjà ce titre, merci de le modifier"
+ * )
  */
 class Books
 {
@@ -51,6 +61,16 @@ class Books
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="relation", orphanRemoval=true)
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +157,36 @@ class Books
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setRelation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getRelation() === $this) {
+                $image->setRelation(null);
+            }
+        }
 
         return $this;
     }
