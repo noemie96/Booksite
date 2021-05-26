@@ -27,7 +27,7 @@ class Image
      * @ORM\ManyToOne(targetEntity=Books::class, inversedBy="images")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $book;
+    private $books;
 
     public function getId(): ?int
     {
@@ -46,14 +46,14 @@ class Image
         return $this;
     }
 
-    public function getBook(): ?Books
+    public function getBooks(): ?Books
     {
-        return $this->book;
+        return $this->books;
     }
 
-    public function setBook(?Books $book): self
+    public function setBooks(?Books $books): self
     {
-        $this->book = $book;
+        $this->books = $books;
 
         return $this;
     }

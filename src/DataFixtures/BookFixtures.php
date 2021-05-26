@@ -2,8 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Books;
 use Faker\Factory;
+use App\Entity\Books;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -32,6 +32,8 @@ class BookFixtures extends Fixture
 
             $manager->persist($books);
 
+
+          
            
         }
 

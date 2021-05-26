@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ books.title }}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+       <h1>{{books.title}}</h1>
+       <p>{{books.resume}}</p>
+       <p class="h2"><strong>{{books.title}}</strong> pour <strong>{{books.price}}</strong>€ </p>
+       
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mb-3">
+            {{books.resume | raw }}
+        
+                        <img src="{{ books.image }}" alt="image de {{ books.title }}" class="starsimg">
+                    
+{% endblock %}
