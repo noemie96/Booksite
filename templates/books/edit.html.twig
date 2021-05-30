@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Création d'une fiche livre{% endblock %}
+{% block title %}Modification du livre {{books.title}}{% endblock %}
 
 {%form_theme myForm _self%}
 
 {% block body %}
     <div class="container">
-        <h1>Création d'une nouvelle fiche livre</h1>
+        <h1>Modification du livre {{books.title}}</h1>
         
 
         {{ form_start(myForm) }}
 
             {{form_widget(myForm)}}
-                <button type="submit" class="btn btn-primary">Création d'une fiche livre</button>
+                <button type="submit" class="btn btn-primary">Modification du livre {{books.title}}</button>
         {{ form_end(myForm) }}
 
     </div>

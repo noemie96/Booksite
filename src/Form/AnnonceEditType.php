@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
-class AnnonceType extends AbstractType
+class AnnonceEditType extends AbstractType
 {
     private function getConfiguration($label,$placeholder, $options=[]){
         return array_merge([

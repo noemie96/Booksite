@@ -5,6 +5,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ImageRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
@@ -20,6 +21,7 @@ class Image
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url(message="Cette url n'est pas valide")
      */
     private $url;
 

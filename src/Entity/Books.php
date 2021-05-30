@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BooksRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -29,11 +30,13 @@ class Books
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, max=255, minMessage="L\'auteur doit  faire plus de 10 caractères", maxMessage="L\auteur ne peut pas faire plus de 255 caractères")
      */
     private $author;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=100, minMessage="Votre résumé doit  faire plus de 20 caractères")
      */
     private $resume;
 
@@ -54,6 +57,7 @@ class Books
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, max=255, minMessage="L\'auteur doit  faire plus de 10 caractères", maxMessage="L\auteur ne peut pas faire plus de 255 caractères")
      */
     private $title;
 
