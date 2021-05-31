@@ -71,6 +71,12 @@ class Books
      */
     private $images;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="books")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $utilisateur;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -204,6 +210,18 @@ class Books
                 $image->setBooks(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?User
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?User $utilisateur): self
+    {
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
