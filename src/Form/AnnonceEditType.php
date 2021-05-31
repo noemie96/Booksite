@@ -3,23 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Books;
-use Symfony\Component\Form\AbstractType;
+use App\Form\ApplicationType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
-class AnnonceEditType extends AbstractType
+class AnnonceEditType extends ApplicationType
 {
-    private function getConfiguration($label,$placeholder, $options=[]){
-        return array_merge([
-            'label'=>$label,
-            'attr'=> [
-            'placeholder'=>$placeholder
-            ]
-        ], $options);
-    }
+    
 
 
     public function buildForm(FormBuilderInterface $builder, array $options)

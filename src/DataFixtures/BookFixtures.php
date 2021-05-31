@@ -49,13 +49,7 @@ class BookFixtures extends Fixture
         }
 
 
-
-
-
-
-
-
-
+        //gestion des annonces
         for($a =1; $a<=10; $a++){
             $books = new Books();
             $title = $faker->sentence($nbWords = 1, $variableNbWords = true);
