@@ -14,8 +14,32 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 mb-3">
-            {{books.resume | raw }}
+            {{books.resume | raw | nl2br }}
         
                         <img src="{{ books.image }}" alt="image de {{ books.title }}" class="starsimg">
+
+    {% set a = books.utilisateur %}
+            {# exemple : ad.author.fullName devient a.fullName #}
+            <div class="row mb-3">
+                <div class="col-3">
+                    <a href="{{ path('user_show',{'slug': a.slug})}}">
+                        {% if a.picture %}
+                                <img src="/uploads/{{a.picture}}" class="avatar avatar-medium" alt="Avatar de {{a.fullName}}">
+                            {% else %}
+                                <img src="http://placehold.it/300x300" class="avatar avatar-medium" alt="Avatar de {{a.fullName}}">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="col">
+                 <a href="{{ path('user_show',{'slug': a.slug})}}">
+                        <h3>{{ a.fullName }}</h3>
+                    </a>
+                    <span class="badge badge-primary">{{ a.books | length }} annonces</span>
+                </div>
+                <div class="col-12 mt-3">
+                {{ a.description | raw | nl2br }}
+                </div>
+            </div>
+        </div>
                     
 {% endblock %}

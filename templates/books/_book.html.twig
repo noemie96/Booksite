@@ -1,0 +1,20 @@
+{% set url = path('books_detail', {'slug': books.slug}) %}
+            <div class="col-md-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header text-center">
+                        {{ books.title }} <strong>{{books.price}} € / nuit</strong>
+                    </div>
+                    <a href="{{url}}">
+                        <img src="{{ books.Image }}" alt="image de {{ books.title }}" class="starsimg">
+                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            {{ books.title }}
+                        </h4>
+                        <p class="card-text">
+                            {{ books.resume }}
+                        </p>
+                        <a href="{{url}}" class="btn btn-secondary">En savoir plus</a>
+                    </div>
+                </div>
+            </div> 

@@ -70,6 +70,9 @@ class BooksController extends AbstractController
                 $manager->persist($image);
             }
 
+            //on ajoute l'auteur mais attention maintenant il y a un risque de bug si on n'est pas connecté (à corriger)
+            $books->setUtilisateur($this->getUser());
+
             $manager->persist($books);
             $manager->flush();
 
