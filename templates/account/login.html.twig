@@ -15,6 +15,11 @@
                         <label for="email">Email</label>
                         <input type="text" name="_username" id="email" class="form-control" placeholder="Adress E-mail..." value="{{username}}" required>
                     </div>
+                     <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        {# symfony veut un name précis pour le password: _password #}
+                        <input type="password" name="_password" id="password" class="form-control" placeholder="Votre mot de passe" required>
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success">Connexion</button>
                     </div>

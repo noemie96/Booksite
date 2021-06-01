@@ -65,7 +65,7 @@ class BooksController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $books->setSlug('');
 
-            foreach($books->getImage() as $image){
+            foreach($books->getImages() as $image){
                 $image->setBooks($books);
                 $manager->persist($image);
             }
