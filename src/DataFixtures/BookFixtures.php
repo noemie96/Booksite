@@ -22,6 +22,17 @@ class BookFixtures extends Fixture
     {
         $faker = Factory::create('FR-fr');
 
+        $admin = new User();
+        $admin->setFirstName('Noemie')
+            ->setLastName('Francois')
+            ->setEmail('nono@epse.be')
+            ->setPassword($this->encoder->encodePassword($admin,'password'))
+            ->setIntroduction($faker->sentence())
+            ->setDescription('<p>'.join('</p><p>', $faker->paragraphs(3)).'</p>')
+            ->setRoles(['ROLE_ADMIN']);
+        $manager->persist($admin);
+
+
         //gestion des utilisateurs
         $users = []; //initialisation d'un tableau pour associer Books et User
         $genres = ['male', 'femelle'];

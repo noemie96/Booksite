@@ -8,7 +8,11 @@
        <h1>{{books.title}}</h1>
        <p>{{books.resume}}</p>
        <p class="h2"><strong>{{books.title}}</strong> pour <strong>{{books.price}}</strong>€ </p>
-       
+              {# système de gestion de l'annonce #}
+       {% if (app.user and app.user == ad.author) or is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('ads_edit',{'slug': ad.slug})}}" class="btn btn-secondary">Modification de l'annonce</a>
+            <a href="{{ path('ads_delete',{'slug': ad.slug})}}" class="btn btn-danger" onclick="return confirm('êtes vous sûr de vouloir supprimer l\'annonce: {{ad.title}}')">Supprimer</a>
+       {% endif %}
     </div>
 </div>
 <div class="container">

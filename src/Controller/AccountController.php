@@ -15,7 +15,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -85,7 +87,7 @@ class AccountController extends AbstractController
    /**
      * Permet d'afficher le formulaire d'édition d'un user et modifier ses informations
      * @Route("/account/profile", name="account_profile")
-     * 
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @return Response
@@ -126,6 +128,7 @@ class AccountController extends AbstractController
     /**
      * Permet de modifier le mot de passe de l'utilisateur
      * @Route("/account/password-update", name="account_password")
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @param UserPasswordEncoderInterface $encoder
@@ -172,7 +175,7 @@ class AccountController extends AbstractController
     /**
      * Permet de modifier l'avatar de l'utilisateur
      * @Route("/account/imgmodify", name="account_modifimg")
-     *
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @return Response
@@ -207,6 +210,7 @@ class AccountController extends AbstractController
                 $user->setPicture($newFilename);
             }
 
+
             $manager->persist($user);
             $manager->flush();
             $this->addFlash(
@@ -226,7 +230,7 @@ class AccountController extends AbstractController
     /**
      * Permet de supprimer l'image de l'utilisateur
      * @Route("/account/delimg", name="account_delimg")
-     *
+     * @IsGranted("ROLE_USER")
      * @param EntityManagerInterface $manager
      * @return Response
      */

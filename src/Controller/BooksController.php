@@ -9,6 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BooksController extends AbstractController
@@ -28,7 +30,8 @@ class BooksController extends AbstractController
     /**
      * Permet de créer une fiche de nouveau livre
      * @Route("/books/new", name="books_create")
-     *
+     * @IsGranted("ROLE_USER")
+     * 
      * @return Response
      */
     public function create(EntityManagerInterface $manager, Request $request)
@@ -56,7 +59,15 @@ class BooksController extends AbstractController
             ]);
             }
 
-
+    /**
+     * Permet de modifier une fiche de livre
+     * @Route("books/{slug}/edit", name="books_edit")
+     * @Security("(is_granted('ROLE_USER') and user === ad.getAuthor()) or is_granted('ROLE_ADMIN')", message="Cette annonce ne vous appartient pas, vous ne pouvez pas la modifier")
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param Books $books
+     * @return Response
+     */
     public function edit(Request $request, EntityManagerInterface $manager, Books $books)
     {
         $form = $this->createForm(AnnonceEditType::class, $books);
@@ -112,7 +123,25 @@ class BooksController extends AbstractController
         ]);
 
     }
-  
+    
+    /**
+     * Permet de supprimer une annonce
+     * @Route("/books/{slug}/delete", name="books_delete")
+     * @Security("is_granted('ROLE_USER') and user === books.getUtilisateur()", message="Vous n'avez pas le droit d'accèder à cette ressource")
+     * @param Ad $ad
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    public function delete (Books $books, EntityManagerInterface $manager)
+    {
+        $this->addFlash(
+            'success',
+            "La fiche de <strong>{$books->getTitle()}</strong>à bien été supprimée"
+        );
+        $manager->remove($books);
+        $manager->flush();
+        return $this->redirectToRoute("books_index");
+    }
 
 
 
