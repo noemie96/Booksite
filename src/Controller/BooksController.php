@@ -3,7 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Books;
+use App\Entity\Genres;
+use App\Entity\Comment;
 use App\Form\AnnonceType;
+use App\Form\CommentType;
+use App\Form\AnnonceEditType;
 use App\Repository\BooksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +41,8 @@ class BooksController extends AbstractController
     public function create(EntityManagerInterface $manager, Request $request)
     {
         $books = new Books();
-       
+        
+        
         $form = $this->createForm(AnnonceType::class,$books);
 
         $form->handleRequest($request);
@@ -62,7 +67,7 @@ class BooksController extends AbstractController
     /**
      * Permet de modifier une fiche de livre
      * @Route("books/{slug}/edit", name="books_edit")
-     * @Security("(is_granted('ROLE_USER') and user === ad.getAuthor()) or is_granted('ROLE_ADMIN')", message="Cette annonce ne vous appartient pas, vous ne pouvez pas la modifier")
+     * @Security("(is_granted('ROLE_USER') and user === books.getUtilisateur()) or is_granted('ROLE_ADMIN')", message="Cette annonce ne vous appartient pas, vous ne pouvez pas la modifier")
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @param Books $books
@@ -81,8 +86,7 @@ class BooksController extends AbstractController
                 $manager->persist($image);
             }
 
-            //on ajoute l'auteur mais attention maintenant il y a un risque de bug si on n'est pas connecté (à corriger)
-            $books->setUtilisateur($this->getUser());
+            
 
             $manager->persist($books);
             $manager->flush();
@@ -106,20 +110,35 @@ class BooksController extends AbstractController
     /**
      * Permet d'afficher un seul livre
      * @Route("/books/{slug}", name="books_detail")
-     *
+     * 
      * @param [string] $slug
      * @return Response
      */
-    public function show(Books $books)
+    public function show(Books $books, Request $request, EntityManagerInterface $manager)
     {
-        //$repo = $this->getDoctrine()->getRepository(Books::class);
-        //$ad = $repo->findOneBySlug($slug);
+        
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
 
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $comment->SetBook($books)
+                    ->setUtilisateur($this->getUser());
+            $manager->persist($comment);
+            $manager->flush();
 
-        //dump($ad);
+            $this->addFlash(
+                'success',
+                'Votre commentaire a bien été pris en compte! '
+            );
+        }
+
+        
 
         return $this->render('books/book.html.twig',[
-            'books' => $books
+            'books' => $books,
+            'myForm' => $form->createView()
         ]);
 
     }
@@ -127,8 +146,8 @@ class BooksController extends AbstractController
     /**
      * Permet de supprimer une annonce
      * @Route("/books/{slug}/delete", name="books_delete")
-     * @Security("is_granted('ROLE_USER') and user === books.getUtilisateur()", message="Vous n'avez pas le droit d'accèder à cette ressource")
-     * @param Ad $ad
+     * @Security("(is_granted('ROLE_USER') and user === books.getUtilisateur()) or is_granted('ROLE_ADMIN')", message="Vous n'avez pas le droit d'accèder à cette ressource")
+     * @param Books $books
      * @param EntityManagerInterface $manager
      * @return Response
      */

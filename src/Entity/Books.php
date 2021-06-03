@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 
+use App\Entity\User;
+use App\Entity\Comment;
 use Cocur\Slugify\Slugify;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BooksRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -77,9 +79,21 @@ class Books
      */
     private $utilisateur;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="book", orphanRemoval=true)
+     */
+    private $comments;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Genres::class, inversedBy="properties")
+     */
+    private $genres;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->genres = new ArrayCollection();
     }
 
     /**
@@ -95,6 +109,40 @@ class Books
             $this->slug = $slugify->slugify($this->title);
         }
     }
+
+     /**
+     * Permet de récup le notation moyenne de mon annonce
+     */
+    public function getAvgRatings()
+    {
+        // calculer la somme des notations
+        // la fonction php array_reduce permet de réduire le tableau à une seule valeur (attention il faut un tableau et pas une array collection d'où l'utilisation de la méthode toArray()) - 2ème paramètre pour la fonction qui va donner chaque valeur à ajouter et le 3ème paramètre c'est la valeur par défaut
+        $sum = array_reduce($this->comments->toArray(),function($total,$comment){
+            return $total + $comment->getRating();
+        },0);
+
+        // faire la division pour avoir la moyenne (ternaire)
+        if(count($this->comments) > 0 ) return $moyenne = round($sum / count($this->comments));
+
+        return 0;
+    }
+
+    /**
+     * Permet de récupérer le commentaire d'un utilisateur par rapport à une fiche livre
+     *
+     * @param User $utilisateur
+     * @return Comment|null
+     */
+    public function getCommentFromUtilisateur (User $utilisateur)
+    {
+        foreach($this->comments as $comment){
+            if($comment->getUtilisateur() === $utilisateur) return $comment;
+        }
+
+        return null;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -225,4 +273,62 @@ class Books
 
         return $this;
     }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getBook() === $this) {
+                $comment->setBook(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Genres[]
+     */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addGenre(Genres $genre): self
+    {
+        if (!$this->genres->contains($genre)) {
+            $this->genres[] = $genre;
+            $genre->addProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(Genres $genre): self
+    {
+        if ($this->genres->removeElement($genre)) {
+            $genre->removeProperty($this);
+        }
+
+        return $this;
+    }
+    
 }

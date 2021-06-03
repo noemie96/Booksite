@@ -12,7 +12,7 @@
                         <img src="http://placehold.it/300x300" class="avatar mb-3" alt="avatar de {{user.fullName}}">
                 {% endif %}
                 <br>
-                <span class="badge badge-primary">{{user.books | length}} anonnce(s)</span>
+                <span class="badge badge-primary">{{user.books | length}} livres(s)</span>
             </div>
             <div class="col-9">
                 <h1>{{user.fullName}}</h1>
@@ -28,7 +28,7 @@
         </div>
         {{user.description | raw | nl2br }}
         <hr>
-        <h2>Les annonces de {{user.fullName}}</h2>
+        <h2>Les livres notés {{user.fullName}}</h2>
         {% if user.books | length > 0 %}
             <div class="row">
                {% for books in user.books %}
@@ -37,7 +37,7 @@
             </div>
             {% else %}
                 <div class="alert alert-warning">
-                    <p><strong>{{user.fullName}}</strong> n'a pas encore d'annonce sur le site</p>
+                    <p><strong>{{user.fullName}}</strong> n'a pas encore noté des livres sur le site</p>
                 </div>
 
         {% endif %}

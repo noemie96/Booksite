@@ -9,9 +9,9 @@
        <p>{{books.resume}}</p>
        <p class="h2"><strong>{{books.title}}</strong> pour <strong>{{books.price}}</strong>€ </p>
               {# système de gestion de l'annonce #}
-       {% if (app.user and app.user == ad.author) or is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('ads_edit',{'slug': ad.slug})}}" class="btn btn-secondary">Modification de l'annonce</a>
-            <a href="{{ path('ads_delete',{'slug': ad.slug})}}" class="btn btn-danger" onclick="return confirm('êtes vous sûr de vouloir supprimer l\'annonce: {{ad.title}}')">Supprimer</a>
+       {% if (app.user and app.user == books.utilisateur) or is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('books_edit',{'slug': books.slug})}}" class="btn btn-secondary">Modification de l'annonce</a>
+            <a href="{{ path('books_delete',{'slug': books.slug})}}" class="btn btn-danger" onclick="return confirm('êtes vous sûr de vouloir supprimer l\'annonce: {{books.title}}')">Supprimer</a>
        {% endif %}
     </div>
 </div>
@@ -21,29 +21,61 @@
             {{books.resume | raw | nl2br }}
         
                         <img src="{{ books.image }}" alt="image de {{ books.title }}" class="starsimg">
+   {# gestion des commentaires #}
+            <hr>
+            {% if books.comments | length > 0 %}
+                <h2 class="mb-3">Commentaires de nos lecteurs: </h2>
 
-    {% set a = books.utilisateur %}
-            {# exemple : ad.author.fullName devient a.fullName #}
-            <div class="row mb-3">
-                <div class="col-3">
-                    <a href="{{ path('user_show',{'slug': a.slug})}}">
-                        {% if a.picture %}
-                                <img src="/uploads/{{a.picture}}" class="avatar avatar-medium" alt="Avatar de {{a.fullName}}">
-                            {% else %}
-                                <img src="http://placehold.it/300x300" class="avatar avatar-medium" alt="Avatar de {{a.fullName}}">
+                <div class="alert alert-info">
+                    <h4 class="alert-heading text-center">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                Note globale
+                            </div>
+                            <div class="col">
+                                {% include 'partials/rating.html.twig' with {'rating': books.avgRatings } %}
+                                <br><small>(Cette moyenne est calculée sur {{ books.comments | length }} avis)</small>
+                            </div>
+                        </div>
+                    </h4>
+                </div>
+
+                {% for comment in books.comments %}
+                    <div class="bg-light rounded mb-3 py-3 px-3">
+                        <strong>{{ comment.utilisateur.firstName }}</strong> a dit: 
+                        <blockquote>
+                            {{comment.content | nl2br }}
+                        </blockquote>
+                        <strong>Note donnée: </strong>
+                        {% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
+
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2>Cette fiche de livre n'a pas encore reçu de commentaire ...</h2>
+            {% endif %}
+{% if app.user %}
+    {% set comment = books.commentFromUtilisateur(app.user) %}
+            
+             <div class="alert alert-light" id="comment">
+                    <h2 class="alert-heading">Votre avis compte!</h2>
+                    
+                        {% set commment = books.commentFromUtilisateur(app.user) %}
+                        {% if comment is not null %}
+                            {# déjà commenté , on ne peut pas commenter 2 fois #}
+                            <blockquote>
+                                {{comment.content}}
+                            </blockquote>
+                            <strong>Note: </strong>{% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
+                        {% else %}
+                            {# formulaire pour commenter le livre #}
+                                {{ form_start(myForm)}}
+                                {{form_widget(myForm)}}
+                                <button type="submit" class="btn btn-success">Confirmer</button>
+                            {{form_end(myForm)}}
+
                         {% endif %}
-                    </a>
-                </div>
-                <div class="col">
-                 <a href="{{ path('user_show',{'slug': a.slug})}}">
-                        <h3>{{ a.fullName }}</h3>
-                    </a>
-                    <span class="badge badge-primary">{{ a.books | length }} annonces</span>
-                </div>
-                <div class="col-12 mt-3">
-                {{ a.description | raw | nl2br }}
-                </div>
-            </div>
         </div>
+{% endif %}
                     
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\User;
 use App\Entity\Books;
+use App\Entity\Comment;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -86,8 +87,20 @@ class BookFixtures extends Fixture
 
           
            
+            //gestion des commentaires
+            if(rand(0,1)){
+                $comment = new Comment();
+                $createBooks = $faker->dateTimeBetween('-6 months','-4 months');
+                $comment->setContent($faker->paragraph())
+                        ->setRating(rand(1,5))
+                        ->setUtilisateur($user)
+                        ->setCreatedBooks($createBooks)
+                        ->setBook($books);
+                $manager->persist($comment);        
+            }
         }
 
         $manager->flush();
     }
+
 }
