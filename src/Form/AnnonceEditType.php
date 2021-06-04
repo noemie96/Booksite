@@ -8,7 +8,7 @@ use App\Form\ApplicationType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
@@ -34,7 +34,7 @@ class AnnonceEditType extends ApplicationType
                 
             )
             ->add('price', MoneyType::class, $this->getConfiguration('Prix du livre',"Donner le prix du livre"))
-            ->add('coverImage', UrlType::class, $this->getConfiguration('image de couverture','Url de votre image'))
+            ->add('coverImage', FileType::class, $this->getConfiguration('image de couverture','Url de votre image'))
             
             
         ;

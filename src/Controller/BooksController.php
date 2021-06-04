@@ -83,9 +83,9 @@ class BooksController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $books->setSlug('');
 
-            foreach($books->getImages() as $image){
-                $image->setBooks($books);
-                $manager->persist($image);
+            foreach($books->getCoverImage() as $coverImage){
+                $coverImage->setBooks($books);
+                $manager->persist($coverImage);
             }
 
             
@@ -146,7 +146,7 @@ class BooksController extends AbstractController
     }
     
     /**
-     * Permet de supprimer une annonce
+     * Permet de supprimer une fiche livre
      * @Route("/books/{slug}/delete", name="books_delete")
      * @Security("(is_granted('ROLE_USER') and user === books.getUtilisateur()) or is_granted('ROLE_ADMIN')", message="Vous n'avez pas le droit d'accèder à cette ressource")
      * @param Books $books

@@ -95,7 +95,7 @@ class AccountController extends AbstractController
     public function profile(Request $request, EntityManagerInterface $manager)
     {
 
-        $user = $this->getuser(); // récupérer l'utilisateur connecté 
+        $user = $this->getUser(); // récupérer l'utilisateur connecté 
         $fileName = $user->getPicture();
         if(!empty($fileName))
         {
