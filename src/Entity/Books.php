@@ -51,7 +51,7 @@ class Books
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $image;
+    private $coverImage;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -182,14 +182,14 @@ class Books
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getCoverImage(): ?string
     {
-        return $this->image;
+        return $this->coverImage;
     }
 
-    public function setImage(string $image): self
+    public function setCoverImage(string $coverImage): self
     {
-        $this->image = $image;
+        $this->coverImage = $coverImage;
 
         return $this;
     }

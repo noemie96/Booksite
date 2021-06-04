@@ -71,7 +71,7 @@ class BookFixtures extends Fixture
             
 
             $books->setTitle($title)
-                  ->setImage('https://picsum.photos/150/350')
+                  ->setCoverImage('https://picsum.photos/150/350')
                     ->setAuthor($author)
                     ->setResume($resume)
                     ->setPrice(rand(6,15))

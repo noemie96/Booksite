@@ -33,7 +33,7 @@ class AnnonceType extends ApplicationType
             ])
             )
             ->add('price', MoneyType::class, $this->getConfiguration('Prix du livre',"Donner le prix du livre"))
-            ->add('image', UrlType::class, $this->getConfiguration('image de couverture','Url de votre image'))
+            ->add('coverImage', UrlType::class, $this->getConfiguration('image de couverture','Url de votre image'))
             
             
         ;

@@ -23,7 +23,7 @@
             {{books.resume | raw | nl2br }}
             
         
-                        <img src="{{ books.image }}" alt="image de {{ books.title }}" class="starsimg">
+                        <img src="{{ books.coverImage }}" alt="image de {{ books.title }}" class="starsimg">
    {# gestion des commentaires #}
             <hr>
             {% if books.comments | length > 0 %}
