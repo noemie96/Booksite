@@ -66,7 +66,6 @@ class BookFixtures extends Fixture
             $books = new Books();
             $title = $faker->sentence($nbWords = 1, $variableNbWords = true);
             $author = $faker->sentence($nbWords = 1, $variableNbWords = true);
-            $genre = $faker->sentence($nbWords = 1, $variableNbWords = true);
             $resume = '<p>'.join('</p><p>',$faker->paragraphs(1)).'</p>';
             $user = $users[rand(0,count($users)-1)];
             
@@ -74,7 +73,6 @@ class BookFixtures extends Fixture
             $books->setTitle($title)
                   ->setImage('https://picsum.photos/150/350')
                     ->setAuthor($author)
-                    ->setGenre($genre)
                     ->setResume($resume)
                     ->setPrice(rand(6,15))
                     ->setUtilisateur($user)
@@ -90,11 +88,11 @@ class BookFixtures extends Fixture
             //gestion des commentaires
             if(rand(0,1)){
                 $comment = new Comment();
-                $createBooks = $faker->dateTimeBetween('-6 months','-4 months');
+                $createdBooks = $faker->dateTimeBetween('-6 months','-4 months');
                 $comment->setContent($faker->paragraph())
                         ->setRating(rand(1,5))
                         ->setUtilisateur($user)
-                        ->setCreatedBooks($createBooks)
+                        ->setCreatedBooks($createdBooks)
                         ->setBook($books);
                 $manager->persist($comment);        
             }

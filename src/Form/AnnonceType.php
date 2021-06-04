@@ -24,7 +24,7 @@ class AnnonceType extends ApplicationType
             ->add('title', TextType::class, $this->getConfiguration('titre','Le titre du livre'))
             ->add('author', TextType::class, $this->getConfiguration('auteur','Le nom de l\'auteur du livre'))
             ->add('resume', TextType::class, $this->getConfiguration('resume','Le résume du livre'))
-            ->add('genre',EntityType::class, $this->getConfiguration('genres',false, [
+            ->add('genres',EntityType::class, $this->getConfiguration('genres',false, [
                 'class' => Genres::class,
                 'choice_label' => function($genres){
                     return $genres->getName();

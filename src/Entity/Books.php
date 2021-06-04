@@ -15,8 +15,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=BooksRepository::class)
- *   * @ORM\HasLifecycleCallbacks
- *  * @UniqueEntity(
+ * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(
  *  fields={"title"},
  *  message="Une autre livre possède déjà ce titre, merci de le modifier"
  * )
@@ -42,10 +42,6 @@ class Books
      */
     private $resume;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $genre;
 
     /**
      * @ORM\Column(type="float")
@@ -172,17 +168,7 @@ class Books
         return $this;
     }
 
-    public function getGenre(): ?string
-    {
-        return $this->genre;
-    }
 
-    public function setGenre(string $genre): self
-    {
-        $this->genre = $genre;
-
-        return $this;
-    }
 
     public function getPrice(): ?float
     {
