@@ -6,8 +6,8 @@
 
     <div class="container">
        <h1>{{books.title}}</h1>
-       <p>{{books.resume}}</p>
-       <p class="h2"><strong>{{books.title}}</strong> pour <strong>{{books.price}}</strong>€ </p>
+       
+      <p>pour <strong>{{books.price}}</strong>€ </p>
               {# système de gestion de l'annonce #}
        {% if (app.user and app.user == books.utilisateur) or is_granted('ROLE_ADMIN') %}
             <a href="{{ path('books_edit',{'slug': books.slug})}}" class="btn btn-secondary">Modification de l'annonce</a>
@@ -21,6 +21,7 @@
             
             </br>
             {{books.resume | raw | nl2br }}
+            </br>
             
         
                         <img src="{{ books.coverImage }}" alt="image de {{ books.title }}" class="starsimg">

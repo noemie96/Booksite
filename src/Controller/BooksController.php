@@ -12,6 +12,7 @@ use App\Repository\BooksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -77,17 +78,18 @@ class BooksController extends AbstractController
      */
     public function edit(Request $request, EntityManagerInterface $manager, Books $books)
     {
+        $fileName = $books->getImages();
+        if(!empty($fileName))
+        {
+            $books->setCoverImage(
+                new File($this->getParameter('uploads_directory').'/'.$books->getImages())
+            );
+        }
         $form = $this->createForm(AnnonceEditType::class, $books);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             $books->setSlug('');
-
-            foreach($books->getCoverImage() as $coverImage){
-                $coverImage->setBooks($books);
-                $manager->persist($coverImage);
-            }
-
             
 
             $manager->persist($books);

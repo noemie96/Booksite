@@ -88,11 +88,9 @@ class BookFixtures extends Fixture
             //gestion des commentaires
             if(rand(0,1)){
                 $comment = new Comment();
-                $createdBooks = $faker->dateTimeBetween('-6 months','-4 months');
                 $comment->setContent($faker->paragraph())
                         ->setRating(rand(1,5))
                         ->setUtilisateur($user)
-                        ->setCreatedBooks($createdBooks)
                         ->setBook($books);
                 $manager->persist($comment);        
             }

@@ -18,11 +18,6 @@ class Comment
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdBooks;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $rating;
@@ -47,18 +42,6 @@ class Comment
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCreatedBooks(): ?\DateTimeInterface
-    {
-        return $this->createdBooks;
-    }
-
-    public function setCreatedBooks(\DateTimeInterface $createdBooks): self
-    {
-        $this->createdBooks = $createdBooks;
-
-        return $this;
     }
 
     public function getRating(): ?int

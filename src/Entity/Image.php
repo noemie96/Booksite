@@ -21,7 +21,8 @@ class Image
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Url(message="Cette url n'est pas valide")
+     * @Assert\Image(mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"}, mimeTypesMessage="Vous devez upload un fichier jpg, png ou gif")
+     * @Assert\File(maxSize="1024k", maxSizeMessage="Taille du fichier trop grande")
      */
     private $url;
 
