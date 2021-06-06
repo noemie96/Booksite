@@ -9,9 +9,10 @@ use App\Form\AnnonceType;
 use App\Form\CommentType;
 use App\Entity\UserImgModify;
 use App\Form\AnnonceEditType;
-use App\Form\CoverImageModify;
+use App\Entity\CoverImageModify;
 use App\Repository\BooksRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\AnnonceCoverImageModifyType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
@@ -45,7 +46,6 @@ class BooksController extends AbstractController
     public function create(EntityManagerInterface $manager, Request $request)
     {
         $books = new Books();
-        
         
         $form = $this->createForm(AnnonceType::class,$books);
 
@@ -130,19 +130,19 @@ class BooksController extends AbstractController
 
     /**
      * Permet de modifier l'image de couverture
-     * @Route("/books/books_edit/coverimagemodify", name="books_coverimagemodify")
+     * @Route("/books/{slug}/edit/CoverImageModify", name="books_coverimagemodify")
      * @IsGranted("ROLE_USER")
+     * @param Books $books
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function coverImageModify (Request $request, EntityManagerInterface $manager){
-        $coverImageModify = new CoverImageModify();
+    public function coverImageModify(Books $books, Request $request, EntityManagerInterface $manager){
 
-        $books = $this->getCoverImage();
-        
-        $form = $this->createForm(CoverImageModify::class, $coverImageModify);
+        $coverImageModify = new CoverImageModify();
+        $form = $this->createForm(AnnonceCoverImageModifyType::class, $coverImageModify);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid())
         {
             if(!empty($books->getCoverImage())){
@@ -175,7 +175,7 @@ class BooksController extends AbstractController
             );
 
             return $this->redirectToRoute('books_detail',[
-                'slug' =>$books->getSlug()
+                'id' =>$books->getId()
             ]);
         }
 

@@ -6,14 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminAdController extends AbstractController
+class AdminBooksController extends AbstractController
 {
     /**
-     * @Route("/admin/ads", name="admin_ads_index")
+     * @Route("/admin/books", name="admin_books_index")
      */
     public function index(): Response
     {
-        return $this->render('admin/ad/index.html.twig', [
+        return $this->render('admin/books/index.html.twig', [
 
         ]);
     }

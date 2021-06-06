@@ -318,5 +318,13 @@ class Books
 
         return $this;
     }
+
+    /**
+     * @return Collection|Books[]
+     */
+    public function getBooks(): Collection
+    {
+        return $this->books;
+    }
     
 }
