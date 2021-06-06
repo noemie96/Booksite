@@ -132,7 +132,7 @@ class BooksController extends AbstractController
      * Permet de modifier l'image de couverture
      * @Route("/books/books_edit/coverimagemodify", name="books_coverimagemodify")
      * @IsGranted("ROLE_USER")
-     * @param request $request
+     * @param Request $request
      * @param EntityManagerInterface $manager
      * @return Response
      */
@@ -140,14 +140,14 @@ class BooksController extends AbstractController
         $coverImageModify = new CoverImageModify();
 
         $books = $this->getCoverImage();
-
+        
         $form = $this->createForm(CoverImageModify::class, $coverImageModify);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
-        if(!empty($books->getCoverImage())){
-            unlink($this->getParameter('uploads_directory').'/'.$books->getCoverImage());
-        }
+            if(!empty($books->getCoverImage())){
+                unlink($this->getParameter('uploads_directory').'/'.$books->getCoverImage());
+            }
         $file = $form['CoverImageModify']->getData();
         if(!empty($file)){
             $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
