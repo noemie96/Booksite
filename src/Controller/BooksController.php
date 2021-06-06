@@ -7,7 +7,9 @@ use App\Entity\Genres;
 use App\Entity\Comment;
 use App\Form\AnnonceType;
 use App\Form\CommentType;
+use App\Entity\UserImgModify;
 use App\Form\AnnonceEditType;
+use App\Form\CoverImageModify;
 use App\Repository\BooksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class BooksController extends AbstractController
 {
@@ -50,6 +53,25 @@ class BooksController extends AbstractController
         if($form->isSubmitted()&& $form->isValid()){
 
             $books->setUtilisateur($this->getUser());
+
+            $file = $form['coverImage']->getData();
+            if(!empty($file)){
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+                try{
+                    $file->move(
+                        $this->getParameter('uploads_directory'),
+                        $newFilename
+                    );
+                }
+                catch(FileException $e)
+                {
+                    return $e->getMessage();
+                }
+        
+                $books->setCoverImage($newFilename);
+            }
             $manager->persist($books);
             $manager->flush();
 
@@ -77,21 +99,15 @@ class BooksController extends AbstractController
      * @return Response
      */
     public function edit(Request $request, EntityManagerInterface $manager, Books $books)
-    {
-        $fileName = $books->getImages();
-        if(!empty($fileName))
-        {
-            $books->setCoverImage(
-                new File($this->getParameter('uploads_directory').'/'.$books->getImages())
-            );
-        }
+    {  
+       
         $form = $this->createForm(AnnonceEditType::class, $books);
         $form->handleRequest($request);
-
+        
         if($form->isSubmitted() && $form->isValid()){
             $books->setSlug('');
-            
 
+           
             $manager->persist($books);
             $manager->flush();
 
@@ -110,6 +126,67 @@ class BooksController extends AbstractController
             "myForm" =>$form->createView()
         ]);
     }
+
+
+    /**
+     * Permet de modifier l'image de couverture
+     * @Route("/books/books_edit/coverimagemodify", name="books_coverimagemodify")
+     * @IsGranted("ROLE_USER")
+     * @param request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    public function coverImageModify (Request $request, EntityManagerInterface $manager){
+        $coverImageModify = new CoverImageModify();
+
+        $books = $this->getCoverImage();
+
+        $form = $this->createForm(CoverImageModify::class, $coverImageModify);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+        if(!empty($books->getCoverImage())){
+            unlink($this->getParameter('uploads_directory').'/'.$books->getCoverImage());
+        }
+        $file = $form['CoverImageModify']->getData();
+        if(!empty($file)){
+            $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+            try{
+                $file->move(
+                    $this->getParameter('uploads_directory'),
+                    $newFilename
+                );
+            }
+            catch(FileException $e)
+            {
+                return $e->getMessage();
+            }
+
+            $books->setCoverImage($newFilename);
+        }
+        $manager->persist($books);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "la fiche du livre <strong>{$books->getTitle()}</strong> a bien été modifiée"
+            );
+
+            return $this->redirectToRoute('books_detail',[
+                'slug' =>$books->getSlug()
+            ]);
+        }
+
+        return $this->render("books/edit.html.twig",[
+            "books" =>$books,
+            "myForm" =>$form->createView()
+        ]);
+    
+    }
+
+
 
     /**
      * Permet d'afficher un seul livre

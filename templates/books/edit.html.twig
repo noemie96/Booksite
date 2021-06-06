@@ -12,8 +12,13 @@
         {{ form_start(myForm) }}
 
             {{form_widget(myForm)}}
+            </br>
                 <button type="submit" class="btn btn-primary">Modification du livre {{books.title}}</button>
-        {{ form_end(myForm) }}
+        {{ form_end(myForm) }} 
+        </br>
+            <a href="{{ path("books_coverimagemodify")}}" class="btn btn-primary mb-2">Modifier la couverture</a>
+       
+
 
     </div>
 {% endblock %} 
@@ -55,6 +60,16 @@
 
 {% block javascripts %}
     <script>
+   
+        $('.custom-file input').change(function (e) {
+            var files = [];
+            for (var i = 0; i < $(this)[0].files.length; i++) {
+                files.push($(this)[0].files[i].name);
+            }
+            $(this).next('.custom-file-label').html(files.join(', '));
+        });
+ 
+
         const addImage = document.querySelector("#add-image")
         addImage.addEventListener('click',()=>{
             // compter combien j'ai de form-group pourles indices ex: annonce_image_0_url

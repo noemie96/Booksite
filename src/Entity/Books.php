@@ -184,12 +184,12 @@ class Books
         return $this;
     }
 
-    public function getCoverImage(): ?string
+    public function getCoverImage()
     {
         return $this->coverImage;
     }
 
-    public function setCoverImage(string $coverImage): self
+    public function setCoverImage($coverImage)
     {
         $this->coverImage = $coverImage;
 

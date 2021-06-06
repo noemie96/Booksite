@@ -41,3 +41,8 @@
 .rating i{
     color: goldenrod;
 }
+
+.img_edit{
+    max-width: 64px;
+    max-height: 64px;
+}
