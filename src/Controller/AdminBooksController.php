@@ -6,6 +6,7 @@ use App\Entity\Books;
 use App\Form\AnnonceType;
 use App\Form\AnnonceEditType;
 use App\Entity\CoverImageModify;
+use App\Service\PaginationService;
 use App\Repository\BooksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\AnnonceCoverImageModifyType;
@@ -19,12 +20,25 @@ class AdminBooksController extends AbstractController
 {
     /**
      * Permet d'afficher l'ensemble des annonces
-     * @Route("/admin/books", name="admin_books_index")
+     * @Route("/admin/books/{page<\d+>?1}", name="admin_books_index")
      */
-    public function index(BooksRepository $repo): Response
+    public function index($page, PaginationService $pagination): Response
     {
+        $pagination->setEntityClass(Books::class)
+                    ->setPage($page)
+                    ->setLimit(10)
+                    ->setRoute('admin_books_index');
+                        /*setRoute est optionnel */
+
+        /*
         return $this->render('admin/books/index.html.twig', [
-            'bookss' => $repo->findAll()
+            'bookss' => $pagination->getData(),
+            'pages' => $pagination->getPages(),
+            'page' => $page
+        ]);
+        */
+        return $this->render('admin/books/index.html.twig',[
+            'pagination' => $pagination
         ]);
     }
 

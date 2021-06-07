@@ -6,7 +6,7 @@
         <h1 class="my-5">Modification du commentaire {{comment.id}}</h1>
         <a href="{{path('admin_comments_index')}}" class="btn btn-secondary my-3">Retour</a>
         <div class="alert alert-info">
-            <p><strong>Annonce liée: </strong>{{comment.books.title}}</p>
+            <p><strong>Annonce liée: </strong>{{comment.book.title}}</p>
             <p><strong>Auteur: </strong>{{comment.utilisateur.fullName}}</p>
         </div>
         {{form_start(myForm)}}

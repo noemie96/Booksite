@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Administration des fiches livres{% endblock %}
 
@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for books in bookss %}
+                {% for books in pagination.data %}
                     <tr>
                         <td>{{books.id}}</td>
                         <td>{{books.title}}</td>
@@ -32,5 +32,6 @@
                 {% endfor %}
             </tbody>
         </table>
+        {{ pagination.display() }}
     </div>
 {% endblock %}

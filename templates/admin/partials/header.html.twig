@@ -7,10 +7,10 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-chart-line"></i> Dashboard</a>
+                        <a class="nav-link" href="{{path('admin_dashboard_index')}}"><i class="fas fa-chart-line"></i> Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{path('admin_books_index')}}"><i class="fas fa-hotel"></i> Fiche</a>
+                        <a class="nav-link" href="{{path('admin_books_index')}}"><i class="fas fa-hotel"></i> Fiches</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{path('admin_comments_index')}}"><i class="fas fa-comments"></i> Commentaires</a>
@@ -21,7 +21,7 @@
                 </ul>
                <ul class='navbar-nav ml-auto'>
                      <li class="nav-item">
-                        <a class="nav-link" href="{{path('homepage')}}" target="_blank"><i class="fas fa-eye"></i> Voir le site</a>
+                        <a class="nav-link" href="{{path('books_index')}}" target="_blank"><i class="fas fa-eye"></i> Voir le site</a>
                     </li>
                         <li class='nav-item dropdown'>
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
