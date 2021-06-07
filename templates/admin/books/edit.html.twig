@@ -1,0 +1,92 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edition de l'annonce: {{books.title}}{% endblock %}
+
+{% form_theme myForm _self %}
+
+{% block body %}
+    <div class="container">
+        <h1>Modification de l'annonce {{books.title}}</h1>
+        <a href="{{path('admin_books_index')}}" class="btn btn-secondary my-3">Retour</a>
+        {{form_start(myForm)}}
+        <div class="row">
+            <div class="col">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h4 class="card-title">Corriger l'annonce?</h4>
+                    </div>
+                    <div class="card-body">
+                        {{form_widget(myForm)}}
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-check"></i>
+                            Enregistrer les modifications
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+           
+   <div class="container">
+   <h4 class="card-title">La couverture</h4>
+        <img src="/uploads/{{ books.coverImage }}" alt="couverture de {{books.title}}" class="img_edit">
+            <button type="submit" class="btn btn-success float-right">Valider la modification</button>
+        
+    </div>
+   
+
+                <div class="card bg-light mt-5">
+                    <div class="card-header">
+                        <h4 class="card-title">Les commentaires</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>User</th>
+                                    <th class="test-center">Note</th>
+                                    <th>Commentaire</th>
+                                    <th class="test-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for comment in books.comments %}
+                                    <tr>
+                                        <td>{{comment.id}}</td>
+                                        <td>{{comment.utilisateur.fullName}}</td>
+                                        <td class="test-center">{{comment.rating}}</td>
+                                        <td class="test-justify">{{comment.content | raw | nl2br}}</td>
+                                        <td class="test-center">
+                                             <a href="#" class="btn btn-success">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {{form_end(myForm)}}
+    </div>
+
+
+
+        
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+           $('.custom-file input').change(function (e) {
+            var files = [];
+            for (var i = 0; i < $(this)[0].files.length; i++) {
+                files.push($(this)[0].files[i].name);
+            }
+            $(this).next('.custom-file-label').html(files.join(', '));
+        });
+    </script>
+{% endblock %}

@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Le Bouquineur - {% block title %}Welcome!{% endblock %}</title>
-     
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
-        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
-        <script src="{{ asset('build/app.js') }}"></script>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% include 'partials/header.html.twig' %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Immoloc - {% block title %}Administration{% endblock %}</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    {% include 'admin/partials/header.html.twig' %}
+    {% block body %}{% endblock %}
+    {% include 'admin/partials/footer.html.twig' %}
 
-        {% block body %}{% endblock %}
-
-        {% include 'partials/footer.html.twig' %}
-
-        {% block javascripts %}{% endblock %}
-    </body>
+    {% block javascripts %}{% endblock %}
+</body>
 </html>
+

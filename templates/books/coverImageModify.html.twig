@@ -5,10 +5,10 @@
    <div class="container">
         <h1>Modifier la couverture de {{books.title }}</h1>
         <img src="/uploads/{{ books.coverImage }}" alt="couverture de {{books.title}}">
-        {{form_start(form)}}
-            {{form_widget(form)}}
+        {{form_start(myForm)}}
+            {{form_widget(myForm)}}
             <button type="submit" class="btn btn-success float-right">Valider la modification</button>
-        {{form_end(form)}}
+        {{form_end(myForm)}}
     </div>
     {% endblock %}
 
