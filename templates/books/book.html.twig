@@ -6,11 +6,19 @@
 
     <div class="container">
        <h1>{{books.title}}</h1>
+
+
+       {% for genre in books.genres %}
+
+       <h4>{{genre.name}}</h4>
+        
+        {% endfor %}
        
       <p>pour <strong>{{books.price}}</strong>€ </p>
               {# système de gestion de l'annonce #}
        {% if (app.user and app.user == books.utilisateur) or is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('books_edit',{'slug': books.slug})}}" class="btn btn-secondary">Modification de l'annonce</a>
+            <a href="{{ path('books_edit',{'slug': books.slug})}}" class="btn btn-primary mb-2">Modification de l'annonce</a>
+            <a href="{{ path('books_coverimagemodify',{'slug': books.slug}) }}" class="btn btn-secondary">Modifier la couverture</a>
             <a href="{{ path('books_delete',{'slug': books.slug})}}" class="btn btn-danger" onclick="return confirm('êtes vous sûr de vouloir supprimer l\'annonce: {{books.title}}')">Supprimer</a>
        {% endif %}
     </div>

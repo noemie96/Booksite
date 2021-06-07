@@ -10,9 +10,9 @@ use App\Form\CommentType;
 use App\Entity\UserImgModify;
 use App\Form\AnnonceEditType;
 use App\Entity\CoverImageModify;
+use App\Form\AnnonceCoverImageModifyType;
 use App\Repository\BooksRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Form\AnnonceCoverImageModifyType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
@@ -130,7 +130,7 @@ class BooksController extends AbstractController
 
     /**
      * Permet de modifier l'image de couverture
-     * @Route("/books/{slug}/edit/CoverImageModify", name="books_coverimagemodify")
+     * @Route("/books/{slug}/CoverImageModify", name="books_coverimagemodify")
      * @IsGranted("ROLE_USER")
      * @param Books $books
      * @param Request $request
@@ -171,11 +171,11 @@ class BooksController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "la fiche du livre <strong>{$books->getTitle()}</strong> a bien été modifiée"
+                "la couverture du livre <strong>{$books->getTitle()}</strong> a bien été modifiée"
             );
 
             return $this->redirectToRoute('books_detail',[
-                'id' =>$books->getId()
+                'slug' =>$books->getSlug('')
             ]);
         }
 

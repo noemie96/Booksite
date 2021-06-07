@@ -42,6 +42,10 @@ class AnnonceType extends ApplicationType
     {
         $resolver->setDefaults([
             'data_class' => Books::class,
+            'validation_groups' => [
+                "Default", 
+                "create"
+            ]
         ]);
     }
 }

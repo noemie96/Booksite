@@ -6,21 +6,22 @@
 
 {% block body %}
     <div class="container">
-        <h1>Modification du livre {{books.title}}</h1>
+        <h1>Modification du livre  {{books.title}}</h1>
         
 
         {{ form_start(myForm) }}
 
             {{form_widget(myForm)}}
             </br>
+            <img src="/uploads/{{ books.coverImage }}" alt="couverture de {{books.title}}" class="img_edit">
+             </br>
+             </br>
                 <button type="submit" class="btn btn-primary">Modification du livre {{books.title}}</button>
 
         {{ form_end(myForm) }} 
-        </br>
-            <img src="/uploads/{{ books.coverImage }}" alt="couverture de {{books.title}}" class="img_edit">
 
         </br>
-            <a href="{{ path("books_coverimagemodify")}}" class="btn btn-primary mb-2">Modifier la couverture</a>
+            
        
 
 

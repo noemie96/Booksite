@@ -43,6 +43,11 @@
 }
 
 .img_edit{
-    max-width: 64px;
-    max-height: 64px;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.img_a{
+    max-width: 200px;
+    max-height: 200px;
 }
