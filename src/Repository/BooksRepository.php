@@ -20,10 +20,10 @@ class BooksRepository extends ServiceEntityRepository
     }
 
      // pas de précision de l'entité pcq je suis déjà dedans
-     public function findBestAds($limit)
+     public function findBestBooks($limit)
      {
          return $this->createQueryBuilder('a')
-                 ->select('a as annonce, AVG(c.rating) as avgRatings')
+                 ->select('a as fiche, AVG(c.rating) as avgRatings')
                  ->join('a.comments','c')
                  ->groupBy('a')
                  ->orderBy('avgRatings','DESC')

@@ -16,7 +16,7 @@ class StatsService{
         return $this->manager->createQuery('SELECT COUNT(u) FROM App\Entity\User u')->getSingleScalarResult();
     }
 
-    public function getAdsCount()
+    public function getBooksCount()
     {
         return $this->manager->createQuery('SELECT COUNT(a) FROM App\Entity\Books a')->getSingleScalarResult();
     }
@@ -32,7 +32,7 @@ class StatsService{
         return $this->manager->createQuery(
             'SELECT AVG(c.rating) as note, a.title, a.id, u.firstName, u.lastName
             FROM App\Entity\Comment c
-            JOIN c.ad a
+            JOIN c.books a
             JOIN a.author u
             GROUP BY a
             ORDER BY note '. $direction

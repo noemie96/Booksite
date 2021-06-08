@@ -15,8 +15,8 @@ class HomeController extends AbstractController
      */
     public function index(BooksRepository $booksRepo, UserRepository $userRepo): Response
     {
-        return $this->render('home.html.twig',[
-            'bookss' => $booksRepo->findBestAds(3),
+        return $this->render('home/index.html.twig',[
+            'books' => $booksRepo->findBestBooks(3),
             'users' => $userRepo->findBestUsers(2)
         ]);
     }

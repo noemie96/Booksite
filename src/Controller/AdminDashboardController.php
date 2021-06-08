@@ -17,21 +17,21 @@ class AdminDashboardController extends AbstractController
     {
       
         $users = $statsService->getUsersCount();
-        $bookss = $statsService->getAdsCount();
+        $books = $statsService->getBooksCount();
         $comments = $statsService->getCommentsCount();
 
-        $bestBookss = $statsService->getBooksStats('DESC');
-        $worstBookss = $statsService->getBooksStats('ASC');
+        $bestBooks = $statsService->getBooksStats('DESC');
+        $worstBooks = $statsService->getBooksStats('ASC');
 
         // 'stats' => compact('users','books','comments')
 
         return $this->render('admin/dashboard/index.html.twig', [
           'stats' => [
               'users' => $users,
-              'bookss' => $bookss,
+              'books' => $books,
               'comments' => $comments
           ],
-          'bestBookss' => $bestbookss,
+          'bestBooks' => $bestbooks,
           'worstBookss' => $worstBookss
         ]);
     }

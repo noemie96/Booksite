@@ -7,9 +7,15 @@
             <span><p>Que tu sois jeune lecteur ou un lecteur aguérit, tu es le bienvenue. Ici tu pourras trouver des idées de nouveaux livres à lire, donner ton avis et noter les livres que tu as lu. (Toutes avis est accepté tant qu'il est poliment énoncé)</p></span>
         </div>
 
-    {% for data in books %}
-                {% include 'books/_books.html.twig' with {'books':data.fiche} %}
-            {% endfor %}
+        
+    <div class="row">
+        <div class="col-sm">
+        <h2>Nos livres les mieux noter</h2>
+             {% for data in books %}
+                {% include 'books/_book.html.twig' with {'books':data.fiche} %}
+             {% endfor %}
+        </div>
+    </div>
 
 
 
