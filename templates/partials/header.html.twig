@@ -20,23 +20,22 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="booksDropdownLink">
                                 <a href="{{ path('books_index', {"filtre":"Thriller"}) }}" class="dropdown-item">Thriller</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="{{ path('books_index',)}}" class="dropdown-item">Horreur</a>
+                                <a href="{{ path('books_index', {"filtre":"Horreur"}) }}" class="dropdown-item">Horreur</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="{{ path('books_index',)}}" class="dropdown-item">Policier</a>
+                                <a href="{{ path('books_index', {"filtre":"Policier"}) }}" class="dropdown-item">Policier</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="{{ path('books_index',{books_genres:'Fantasy'},)}}" class="dropdown-item">Fantasy</a>
+                                <a href="{{ path('books_index',{"filtre":"Fantasy"}) }}" class="dropdown-item">Fantasy</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="{{ path('books_index',)}}" class="dropdown-item">Fantastique</a>
+                                <a href="{{ path('books_index', {"filtre":"Fantastique"}) }}" class="dropdown-item">Fantastique</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="{{ path('books_index',)}}" class="dropdown-item">Romance</a>
+                                <a href="{{ path('books_index', {"filtre":"Romance"}) }}" class="dropdown-item">Romance</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="{{ path('books_index',)}}" class="dropdown-item">Sciences-fiction</a>
+                                <a href="{{ path('books_index', {"filtre":"Sciences-fiction"}) }}" class="dropdown-item">Sciences-fiction</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="{{ path('books_index',)}}" class="dropdown-item">Classique</a>
+                                <a href="{{ path('books_index',{"filtre":"Classique"}) }}" class="dropdown-item">Classique</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="{{ path('books_index',)}}" class="dropdown-item">Contemporain</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="{{ path('books_index',)}}" class="dropdown-item">Culturel</a>
+                                <a href="{{ path('books_index',{"filtre":"Contemporain"}) }}" class="dropdown-item">Contemporain</a>
+                               
                                 
         </li>
         
@@ -63,9 +62,9 @@
                         </li>
                     {% endif %}
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="text" placeholder="Recherche">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      <form class="d-flex" action="{{path('search')}}" method="GET">
+        <input class="form-control me-sm-2" type="text" placeholder="Recherche" name="search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Recherche</button>
       </form>
     </div>
   </div>

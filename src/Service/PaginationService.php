@@ -110,7 +110,7 @@ class PaginationService {
                 'page' => $this->currentPage,
                 'pages' => $this->getPages(),
                 'route' => $this->route,
-                'category' => 'all'
+                'category' => 'All'
             ]);
         }else {
             $this->twig->display($this->templatePath, [
@@ -150,10 +150,8 @@ class PaginationService {
         }else{
            $total = count($this->manager
                 ->getRepository($this->entityClass)
-                ->findBy(
-                    ['categorie' => $this->category],
-                    []
-                ));
+                ->findByFilter($this->category, null, null)
+                );
         }
 
 
@@ -189,11 +187,8 @@ class PaginationService {
         }else{
             return $this->manager
                 ->getRepository($this->entityClass)
-                ->findBy(
-                    ['categorie' => $this->category],
-                    [],
-                    $this->limit, $offset
-                );
+                ->findByFilter($this->category, $offset, $this->limit)
+                ;
         }
 
     }

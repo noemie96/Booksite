@@ -12,6 +12,7 @@ use App\Form\AnnonceEditType;
 use App\Entity\CoverImageModify;
 use App\Form\AnnonceCoverImageModifyType;
 use App\Repository\BooksRepository;
+use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,33 +27,38 @@ use Symfony\Component\Validator\Constraints\All;
 class BooksController extends AbstractController
 {
     /**
-     * @Route("/books/{filtre}", name="books_index")
+     * @Route("/books/{filtre}/{page<\d+>?1}", name="books_index")
      */
-    public function index(BooksRepository $repo, $filtre="All"): Response
+    public function index($page, PaginationService $pagination, $filtre="All"): Response
     {
-        $filtres=["Thriller","Fantasy","Fantastique","Policier","Romance"];
-        if($filtre=="All"){
-            $bookss = $repo->findAll();
-            
-        }else{
-            if(in_array($filtre, $filtres)){
-                $bookss = $repo->findByFilter($filtre);
-
+        $filtres=["All", "Thriller","Fantasy","Fantastique","Policier","Romance","Horreur", "Classique", "Contemporain", "Sciences-fiction"];
+        if(in_array($filtre, $filtres)){
+            if($filtre == "All"){
+                $pagination->setEntityClass(Books::class)
+                            ->setPage($page)
+                            ->setLimit(10);
             }else{
-               throw $this->createNotFoundException("catégorie inconnue");
+                $pagination->setEntityClass(Books::class)
+                ->setPage($page)
+                ->setCategory($filtre)
+                ->setLimit(10);
+
             }
-            
+        }else{
+            throw $this->createNotFoundException("catégorie inconnue");
         }
 
+        
+
         return $this->render('books/index.html.twig', [
-            'bookss' => $bookss,
+            'pagination' => $pagination,
             'filtre' => $filtre
         ]);
     }
 
     /**
      * Permet de créer une fiche de nouveau livre
-     * @Route("/books/new", name="books_create")
+     * @Route("/books-new", name="books_create")
      * @IsGranted("ROLE_USER")
      * 
      * @return Response
@@ -105,7 +111,7 @@ class BooksController extends AbstractController
 
     /**
      * Permet de modifier une fiche de livre
-     * @Route("books/{slug}/edit", name="books_edit")
+     * @Route("books-edit/{slug}", name="books_edit")
      * @Security("(is_granted('ROLE_USER') and user === books.getUtilisateur()) or is_granted('ROLE_ADMIN')", message="Cette annonce ne vous appartient pas, vous ne pouvez pas la modifier")
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -144,7 +150,7 @@ class BooksController extends AbstractController
 
     /**
      * Permet de modifier l'image de couverture
-     * @Route("/books/{slug}/CoverImageModify", name="books_coverimagemodify")
+     * @Route("/books-edit/{slug}/CoverImageModify", name="books_coverimagemodify")
      * @IsGranted("ROLE_USER")
      * @param Books $books
      * @param Request $request
@@ -204,7 +210,7 @@ class BooksController extends AbstractController
 
     /**
      * Permet d'afficher un seul livre
-     * @Route("/books/{slug}", name="books_detail")
+     * @Route("/books-view/{slug}", name="books_detail")
      * 
      * @param [string] $slug
      * @return Response
@@ -240,7 +246,7 @@ class BooksController extends AbstractController
     
     /**
      * Permet de supprimer une fiche livre
-     * @Route("/books/{slug}/delete", name="books_delete")
+     * @Route("/books-delete/{slug}", name="books_delete")
      * @Security("(is_granted('ROLE_USER') and user === books.getUtilisateur()) or is_granted('ROLE_ADMIN')", message="Vous n'avez pas le droit d'accèder à cette ressource")
      * @param Books $books
      * @param EntityManagerInterface $manager
@@ -257,12 +263,7 @@ class BooksController extends AbstractController
         return $this->redirectToRoute("books_index");
     }
 
-    public function configureFilters(Filters $filters): Filters 
-    {
-        return $filters
-        ->add('title')
-        ->add('author');
-    }
+    
 
 
 }

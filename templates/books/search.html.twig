@@ -1,23 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nos annonces{% endblock %}
+{% block title %}Nos fiches de livres{% endblock %}
 
 {% block body %}
     <div class="container">
     
         <h1 class="my-3">
-        Voici nos livres 
-            {% if filtre != "All" %}
-            {{filtre}}
-         {% endif %}
+        Voici vos recherche pour: {{recherche}}
+         
         </h1>
             <div class="row">
                
-                    {% for books in pagination.data %}
+                    {% for books in bookss %}
                         {% include 'books/_book.html.twig'%}
                      {% endfor %}
         
             </div>
-        {{pagination.display()}}
     </div>
 {% endblock %}

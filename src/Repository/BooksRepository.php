@@ -34,14 +34,26 @@ class BooksRepository extends ServiceEntityRepository
      }
 
 
-     public function findByFilter($filter)
+     public function findByFilter($filter, $offset, $limit)
      {
          return $this->createQueryBuilder('b')
                     ->join('b.genres', 'g')
                     ->where('g.name = :val')
                     ->setParameter('val', $filter)
+                    ->setFirstResult($offset)
+                    ->setMaxResults($limit)
                     ->getQuery()
                     ->getResult()
+                ;
+     }
+
+     public function mySearch($search)
+     {
+         return $this->createQueryBuilder('b')
+                    ->where('b.title LIKE :search OR b.author LIKE :search')
+                    ->setParameter('search', '%'.$search.'%')
+                    ->getQuery()
+                    ->execute()
                 ;
      }
      
@@ -55,6 +67,7 @@ class BooksRepository extends ServiceEntityRepository
             ->andWhere('b.exampleField = :val')
             ->setParameter('val', $value)
             ->orderBy('b.id', 'ASC')
+            ->setFirstResult($offset)
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()

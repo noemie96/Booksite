@@ -21,7 +21,7 @@ class AdminUserController extends AbstractController
     {
         $pagination->setEntityClass(User::class)
                     ->setPage($page)
-                    ->setLimit(5);
+                    ->setLimit(10);
 
         return $this->render('admin/user/index.html.twig', [
             'pagination' => $pagination        
@@ -65,8 +65,32 @@ class AdminUserController extends AbstractController
         return $this->render("admin/user/index.html.twig",[
             'myForm' => $form->createView()
         ]);
-
     }
+
+
+
+    /** 
+    * Permet de supprimer une annonce
+    * @Route("/admin/user/{id}/delete", name="admin_user_delete")
+    *
+    * @param Books $books
+    * @param EntityManagerInterface $manager
+    * @return Response
+    */
+   public function delete(User $user, EntityManagerInterface $manager){
+       // one ne peut pas supprimer une annonce qui possède des avis
+       
+           $this->addFlash(
+               'success',
+               "La fiche de <strong>{$user->getFullName()}</strong>à bien été supprimée"
+           );
+           $manager->remove($user);
+           $manager->flush();
+           return $this->redirectToRoute("admin_user");
+       }
+
+
+    
 
 
 }

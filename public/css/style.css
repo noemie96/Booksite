@@ -1,5 +1,6 @@
 .container{
     margin-top: 20px;
+    overflow-x: auto;
    
 }
 .container_colonne{
@@ -23,6 +24,7 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
 .starsimg{
     height: 300px;
     width: 200px;

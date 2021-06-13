@@ -17,6 +17,11 @@
                     </div>
                     <div class="card-body">
                         {{form_widget(myForm)}}
+   </br>
+            <img src="/uploads/{{ books.coverImage }}" alt="couverture de {{books.title}}" class="img_edit">
+             </br>
+             </br>
+               <a href="{{ path('admin_books_coverimagemodify',{'slug': books.slug}) }}" class="btn btn-secondary">Modifier la couverture</a>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-check"></i>
                             Enregistrer les modifications
@@ -26,14 +31,7 @@
             </div>
             
            
-   <div class="container">
-   <h4 class="card-title">La couverture</h4>
 
-        
-        <img src="/uploads/{{ books.coverImage }}" alt="couverture de {{books.title}}" class="img_edit">
-            <button type="submit" class="btn btn-success float-right">Valider la modification</button>
-        
-    </div>
    
 
                 <div class="card bg-light mt-5">

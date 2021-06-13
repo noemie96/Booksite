@@ -4,13 +4,15 @@
     <div class="container">
         <div class="jumbotron mt-3">
             <h1 class="display-3">Bienvenue à toi lecteur! </h1>
-            <span><p>Que tu sois jeune lecteur ou un lecteur aguérit, tu es le bienvenue. Ici tu pourras trouver des idées de nouveaux livres à lire, donner ton avis et noter les livres que tu as lu. (Toutes avis est accepté tant qu'il est poliment énoncé)</p></span>
+            <span><p>Que tu sois jeune lecteur ou un lecteur aguérit, tu es le bienvenue. </br>Ici, tu pourras trouver des idées de nouveaux livres à lire, donner ton avis et noter les livres que tu as lu. (Toutes avis est accepté tant qu'il est poliment énoncé)</p></span>
         </div>
 </div>
 <div id="block"></div>
 <div class="container_dif">
-    <div class="row">
+    </br>
         <h2>Nos livres les mieux noter</h2>
+        </br>
+    <div class="row">
              {% for data in books %}
                 {% include 'books/_book.html.twig' with {'books':data.fiche} %}
              {% endfor %}
