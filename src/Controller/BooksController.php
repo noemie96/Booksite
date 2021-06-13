@@ -21,18 +21,32 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Validator\Constraints\All;
 
 class BooksController extends AbstractController
 {
     /**
-     * @Route("/books", name="books_index")
+     * @Route("/books/{filtre}", name="books_index")
      */
-    public function index(BooksRepository $repo): Response
+    public function index(BooksRepository $repo, $filtre="All"): Response
     {
-        $bookss = $repo->findAll();
+        $filtres=["Thriller","Fantasy","Fantastique","Policier","Romance"];
+        if($filtre=="All"){
+            $bookss = $repo->findAll();
+            
+        }else{
+            if(in_array($filtre, $filtres)){
+                $bookss = $repo->findByFilter($filtre);
+
+            }else{
+               throw $this->createNotFoundException("catégorie inconnue");
+            }
+            
+        }
 
         return $this->render('books/index.html.twig', [
             'bookss' => $bookss,
+            'filtre' => $filtre
         ]);
     }
 
@@ -243,6 +257,12 @@ class BooksController extends AbstractController
         return $this->redirectToRoute("books_index");
     }
 
+    public function configureFilters(Filters $filters): Filters 
+    {
+        return $filters
+        ->add('title')
+        ->add('author');
+    }
 
 
 }

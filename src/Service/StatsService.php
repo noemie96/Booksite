@@ -32,8 +32,8 @@ class StatsService{
         return $this->manager->createQuery(
             'SELECT AVG(c.rating) as note, a.title, a.id, u.firstName, u.lastName
             FROM App\Entity\Comment c
-            JOIN c.books a
-            JOIN a.author u
+            JOIN c.book a
+            JOIN a.utilisateur u
             GROUP BY a
             ORDER BY note '. $direction
         )

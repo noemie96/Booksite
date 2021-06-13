@@ -1,4 +1,4 @@
-% extends 'admin/base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Dashboard{% endblock %}
 
@@ -27,7 +27,7 @@
                                 <i class="fas fa-hotel fa-3x"></i>
                             </div>
                             <div class="col-8">
-                                 <a href="{{path('admin_books_index')}}"><h4 class="card-title">{{stats.ads}} fiches postées</h4></a>
+                                 <a href="{{path('admin_books_index')}}"><h4 class="card-title">{{stats.books}} fiches postées</h4></a>
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for ad in bestBookss %}
+                            {% for books in bestBooks %}
                                 <tr>
                                     <td>{{books.title}}</td>
                                     <td>{{books.firstName}} {{books.lastName}}</td>
@@ -87,12 +87,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for books in worstBookss %}
+                            {% for books in worstBooks %}
                                 <tr>
                                     <td>{{books.title}}</td>
                                     <td>{{books.firstName}} {{books.lastName}}</td>
                                     <td class="text-center">
-                                        <span class="badge badge-dark">{{ ad.note | number_format(1,',',' ') }}</span>
+                                        <span class="badge badge-dark">{{ books.note | number_format(1,',',' ') }}</span>
                                     </td>
                                 </tr>
                             {% endfor %}

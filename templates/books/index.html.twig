@@ -4,11 +4,19 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="my-3">Voici nos livres</h1>
-        <div class="row">
-        {% for books in bookss %}
-        {% include 'books/_book.html.twig'%}
-        {% endfor %}
-        </div>
+    
+        <h1 class="my-3">
+        Voici nos livres 
+            {% if filtre != "All" %}
+            {{filtre}}
+         {% endif %}
+        </h1>
+            <div class="row">
+               
+                    {% for books in bookss %}
+                        {% include 'books/_book.html.twig'%}
+                     {% endfor %}
+        
+            </div>
     </div>
 {% endblock %}

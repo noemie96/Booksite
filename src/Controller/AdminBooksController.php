@@ -124,7 +124,7 @@ class AdminBooksController extends AbstractController
             ]);
         }
 
-        return $this->render("books/edit.html.twig",[
+        return $this->render("admin/books/edit.html.twig",[
             "books" =>$books,
             "myForm" =>$form->createView()
         ]);

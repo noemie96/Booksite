@@ -28,6 +28,8 @@
            
    <div class="container">
    <h4 class="card-title">La couverture</h4>
+
+        
         <img src="/uploads/{{ books.coverImage }}" alt="couverture de {{books.title}}" class="img_edit">
             <button type="submit" class="btn btn-success float-right">Valider la modification</button>
         
@@ -46,7 +48,7 @@
                                     <th>User</th>
                                     <th class="test-center">Note</th>
                                     <th>Commentaire</th>
-                                    <th class="test-center">Action</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,10 +58,6 @@
                                         <td>{{comment.utilisateur.fullName}}</td>
                                         <td class="test-center">{{comment.rating}}</td>
                                         <td class="test-justify">{{comment.content | raw | nl2br}}</td>
-                                        <td class="test-center">
-                                             <a href="#" class="btn btn-success">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
                                         </td>
                                     </tr>
                                 {% endfor %}

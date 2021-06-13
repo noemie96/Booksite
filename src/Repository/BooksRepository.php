@@ -33,6 +33,17 @@ class BooksRepository extends ServiceEntityRepository
          ;
      }
 
+
+     public function findByFilter($filter)
+     {
+         return $this->createQueryBuilder('b')
+                    ->join('b.genres', 'g')
+                    ->where('g.name = :val')
+                    ->setParameter('val', $filter)
+                    ->getQuery()
+                    ->getResult()
+                ;
+     }
      
     // /**
     //  * @return Books[] Returns an array of Books objects

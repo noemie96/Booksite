@@ -31,8 +31,8 @@ class AdminDashboardController extends AbstractController
               'books' => $books,
               'comments' => $comments
           ],
-          'bestBooks' => $bestbooks,
-          'worstBookss' => $worstBookss
+          'bestBooks' => $bestBooks,
+          'worstBooks' => $worstBooks
         ]);
     }
 }
