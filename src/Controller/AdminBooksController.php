@@ -141,7 +141,7 @@ class AdminBooksController extends AbstractController
      * @return Response
      */
     public function delete(Books $books, EntityManagerInterface $manager){
-        // one ne peut pas supprimer une annonce qui possède des avis
+        // on ne peut pas supprimer une annonce qui possède des avis
         
             $this->addFlash(
                 'success',

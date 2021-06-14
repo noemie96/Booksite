@@ -51,13 +51,13 @@ class Books
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Image(mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"}, mimeTypesMessage="Vous devez upload un fichier jpg, png ou gif", groups={"create"})
-     * @Assert\File(maxSize="1024k", maxSizeMessage="Taille du fichier trop grande", groups={"create"})
+     * @Assert\File(maxSize="2000k", maxSizeMessage="Taille du fichier trop grande", groups={"create"})
      */
     private $coverImage;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=255, minMessage="L\'auteur doit  faire plus de 10 caractères", maxMessage="L\auteur ne peut pas faire plus de 255 caractères")
+     * @Assert\Length(min=1, max=255, minMessage="Le titre doit  faire plus de 1 caractères", maxMessage="Le titre ne peut pas faire plus de 255 caractères")
      */
     private $title;
 

@@ -30,7 +30,7 @@ class AdminUserController extends AbstractController
 
     /**
      * Permet d'afficher le formulaire d'édition d'un user et modifier ses informations
-     * @Route("admin/user/index", name="admin_user_profile")
+     * @Route("admin/user/profile", name="admin_user_profile")
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @return Response
@@ -78,7 +78,7 @@ class AdminUserController extends AbstractController
     * @return Response
     */
    public function delete(User $user, EntityManagerInterface $manager){
-       // one ne peut pas supprimer une annonce qui possède des avis
+       // on ne peut pas supprimer une annonce qui possède des avis
        
            $this->addFlash(
                'success',
