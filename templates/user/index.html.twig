@@ -29,7 +29,7 @@
         </div>
         {{user.description | raw | nl2br }}
         <hr>
-        <h2>Les livres notés {{user.fullName}}</h2>
+        <h2>Les livres que {{user.fullName}} à ajouté</h2>
         {% if user.books | length > 0 %}
             <div class="row">
                {% for books in user.books %}
@@ -38,7 +38,7 @@
             </div>
             {% else %}
                 <div class="alert alert-warning">
-                    <p><strong>{{user.fullName}}</strong> n'a pas encore noté des livres sur le site</p>
+                    <p><strong>{{user.fullName}}</strong> n'a pas encore ajouté des livres sur le site</p>
                 </div>
 
         {% endif %}
