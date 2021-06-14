@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="containerForm">
-    <div class="espace"></div>
+    
         <h1>Inscription sur Booksite</h1>
         {{form_start(myForm)}}
             {{form_widget(myForm)}}
@@ -12,6 +12,7 @@
                 <button type="submit" class="btn btn-success">Confirmez l'inscription</button>
         {{form_end(myForm)}}
     <div class="espace"></div>
+    </div>
     {% endblock %}
 {% block javascripts %}
      <script>
