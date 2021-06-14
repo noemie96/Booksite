@@ -6,6 +6,7 @@
     <div class="container">
         <div class="row align-items-center mb-3">
             <div class="col-3 text-center">
+           
                 {% if user.picture %}
                         <img src="/uploads/{{user.picture}}" class="avatar mb-3" alt="avatar de {{user.fullName}}">
                     {% else %}
@@ -41,5 +42,6 @@
                 </div>
 
         {% endif %}
+        
     </div>
 {% endblock %}

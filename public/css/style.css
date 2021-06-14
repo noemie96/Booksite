@@ -1,23 +1,60 @@
+*{
+    margin: 0;
+    padding: auto;
+}
+
 .container{
+    min-height: 20vh;
     margin-top: 20px;
     overflow-x: auto;
-   
+}
+
+.containerPage{
+    margin-top: 20px;
+    overflow-x: auto;
+    text-align: center;
 }
 .container_colonne{
     margin-top: 20px;
     display:flex;
+    flex-direction: column;
+    text-align: center;
+    overflow-x: auto;
 }
 
 .container_dif{
+    min-height: 20vh;
     margin-left: 70px;
     margin-right: 50px;
     margin-top: 20px;
     text-align: center;
+    overflow-x: auto;
 }
+.containerForm{
+    min-height: 50vh;
+    margin-left: 70px;
+    margin-right: 50px;
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.espace{
+    min-height: 20vh;
+}
+
+.espace2{
+    min-height: 35vh;
+}
+
+.espace3{
+    min-height: 15vh;
+}
+
+
 
 #block{
     width:100%;
-    height:200px;
+    height:300px;
     position: relative;
     background-image:url("/images/annie-spratt-GWCvnsMtiBg-unsplash.jpg");
     background-size: cover;
@@ -25,7 +62,26 @@
     background-attachment: fixed;
 }
 
+#block2{
+    width:100%;
+    height:200px;
+    position: relative;
+    background-image:url("/images/annie-spratt-GWCvnsMtiBg-unsplash.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+
+
 .starsimg{
+    height: 400px;
+    width: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.starsimgaff{
     height: 300px;
     width: 200px;
     display: block;

@@ -6,6 +6,7 @@
 
 {% block body %}
     <div class="container">
+    <div class="espace"></div>
         <h1>Création d'une nouvelle fiche livre</h1>
         
 
@@ -14,7 +15,7 @@
             {{form_widget(myForm)}}
                 <button type="submit" class="btn btn-primary">Création d'une fiche livre</button>
         {{ form_end(myForm) }}
-
+<div class="espace2"></div>
     </div>
 {% endblock %} 
 {% block _annonce_images_widget %}
@@ -49,7 +50,6 @@
                 <button type="button" class="btn btn-danger" data-action="delete" data-target='#block_{{id}}'>X</button>
             </div>
         </div>
-
      </div> 
 {% endblock %}
 
@@ -97,4 +97,5 @@
         updateCounter()
         handleDeleteButtons()
     </script>
+
 {% endblock %}

@@ -19,7 +19,6 @@
                         <td>{{user.fullName}}</td>
                         <td class="text-justify">{{user.introduction | raw | nl2br }}</td>
                         <td class="text-center">
-                         <a href="{{ path('admin_user_profile',{'id':user.id})}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                          <a href="{{ path('admin_user_delete',{'id':user.id})}}" class="btn btn-danger"><i class="fas fa-trash"></i></a> 
                         </td>
                     </tr>

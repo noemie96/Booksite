@@ -3,13 +3,15 @@
 {% block title %}Inscription au site{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="containerForm">
+    <div class="espace"></div>
         <h1>Inscription sur Booksite</h1>
         {{form_start(myForm)}}
             {{form_widget(myForm)}}
+            </br>
                 <button type="submit" class="btn btn-success">Confirmez l'inscription</button>
         {{form_end(myForm)}}
-    </div>
+    <div class="espace"></div>
     {% endblock %}
 {% block javascripts %}
      <script>
