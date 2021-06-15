@@ -1,23 +1,20 @@
-*{
-    margin: 0;
-    padding: auto;
-}
 
 .container{
     min-height: 20vh;
     margin-top: 20px;
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 
 .containerPage{
     margin-top: 20px;
-    overflow-x: auto;
+    overflow-x: hidden;
     text-align: center;
 }
+
 .container_colonne{
     margin-top: 20px;
+    overflow-x: hidden;
     display:flex;
-    overflow-x: auto;
 }
 
 .container_dif{
@@ -26,14 +23,14 @@
     margin-right: 50px;
     margin-top: 20px;
     text-align: center;
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 .containerForm{
     min-height: 50vh;
     margin-left: 70px;
     margin-right: 50px;
     margin-top: 20px;
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 
 .espace{
