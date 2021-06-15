@@ -23,12 +23,12 @@
         <div class="col-sm-8">
  </br>
  </br>
+       <p><strong>{{books.author}}</strong></p>
        {% for genre in books.genres %}
 
        <h4>{{genre.name}}</h4>
         
         {% endfor %}
-       
       <p>pour <strong>{{books.price}}</strong>€ </p>
             </br>
             {{books.resume | raw | nl2br }}
