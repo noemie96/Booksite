@@ -45,7 +45,13 @@
     min-height: 15vh;
 }
 
+.card{
+    min-height: 600px;
+}
 
+.card-header{
+    min-height: 100px;
+}
 
 #block{
     width:100%;
@@ -79,9 +85,11 @@
 .starsimgaff{
     height: 300px;
     width: 200px;
+    padding-top: 20px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    object-fit: contain;
 }
 
 .annonce-title{
